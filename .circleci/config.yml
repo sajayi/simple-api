@@ -1,7 +1,7 @@
 jobs:
   build:
     docker:
-      - image: <docker image>
+      - image: 'circleci/classic:201808-01'
     steps:
       - run: exit 0
       - slack/status:
