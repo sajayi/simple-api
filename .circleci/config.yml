@@ -4,10 +4,8 @@ jobs:
       - image: 'circleci/node:4.8.2'
     steps:
       - slack/status:
-          fail_only: true
           mentions: '@sajayi'
           only_for_branches: only_for_branches
-          webhook: webhook
 orbs:
   slack: circleci/slack@3.2.0
 version: 2.1
