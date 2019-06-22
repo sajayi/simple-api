@@ -1,36 +1,14 @@
 jobs:
   build:
-    environment: CHANGE_MINIKUBE_NONE_USER=true
-    machine:
-      image: 'circleci/classic:201808-01'
+    docker:
+      - image: <docker image>
     steps:
-      - checkout
-      - kube-orb/install
-      - run:
-          command: >
-            curl -Lo minikube
-            https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-            \
-              && chmod +x minikube
-            sudo cp minikube /usr/local/bin && rm minikube
-
-            sudo -E minikube start --vm-driver=none --cpus 2 --memory 2048
-          name: Start minikube
-      - kube-orb/create-or-update-resource:
-          get-rollout-status: true
-          resource-file-path: tests/nginx-deployment/deployment.yaml
-          resource-name: deployment/nginx-deployment
-          show-kubectl-command: true
-      - kube-orb/update-container-image:
-          container-image-updates: 'nginx=nginx:1.9.1'
-          get-rollout-status: true
-          record: true
-          resource-name: deployment/nginx-deployment
-      - kube-orb/delete-resource:
-          now: true
-          resource-names: nginx-deployment
-          resource-types: deployments
-          wait: true
+      - run: exit 0
+      - slack/status:
+          fail_only: true
+          mentions: 'USERID1,USERID2'
+          only_for_branches: only_for_branches
+          webhook: webhook
 orbs:
-  kube-orb: circleci/kubernetes@1.0.0
+  slack: circleci/slack@x.y.z
 version: 2.1
