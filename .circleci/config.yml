@@ -11,10 +11,10 @@ jobs:
       - run: docker build -t varsoft/simple-api:$CIRCLE_BRANCH .
       # deploy the image
       - run: docker push varsoft/simple-api:$CIRCLE_BRANCH
-      - kubernetes/install:
+      - kubernetes/install
       - run:
           name: Kubeconfig
-          command: |
+          command: |-
             kubectl config set-credentials circleci-sa --token=$CIRCLECI_PIPELINE_SA_TOKEN
             kubectl config set-cluster fi-cluster --server=$FI_CLUSTER_IP --certificate-authority=$FI_CLUSTER_CA --embed-certs=true
             kubectl config set-context fi-cluster-context --cluster=fi-cluster --user=circleci-sa
