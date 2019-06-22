@@ -6,9 +6,9 @@ jobs:
       # Docker login
       - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
       # build the application image
-      - run: docker build -t varsoft/simple-api:$CIRCLE_BRANCH .
+      - run: docker build -t varsoft/simple-api:$(git rev-parse HEAD) .
       # deploy the image
-      - run: docker push varsoft/simple-api:$CIRCLE_BRANCH
+      - run: docker push varsoft/simple-api:$(git rev-parse HEAD)
       - slack/approval:
           message: Pending approval of build
           mentions: 'shawlz'
