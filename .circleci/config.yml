@@ -11,7 +11,7 @@ jobs:
       - run: docker build -t varsoft/simple-api:$CIRCLE_BRANCH .
       # deploy the image
       - run: docker push varsoft/simple-api:$CIRCLE_BRANCH
-      - slack/approval-notification:
+      - slack/approval:
           message: Pending approval of build
           mentions: 'shawlz'
   deploy:
