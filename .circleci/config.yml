@@ -7,6 +7,9 @@ jobs:
       - run:
           name: Install dependencies
           command: cd application && yarn install
+      - run
+          name: Build Image
+          command: docker build .
       - slack/status:
           mentions: 'shawlz'
 #release-branch-workflow:
