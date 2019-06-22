@@ -3,11 +3,12 @@ jobs:
     docker:
       - image: 'circleci/node:4.8.2'
     steps:
-      - slack/status:
-          mentions: 'shawlz'
+      - checkout
       - run:
           name: Install dependencies
           command: ls
+      - slack/status:
+          mentions: 'shawlz'
 release-branch-workflow:
   jobs:
     - build
