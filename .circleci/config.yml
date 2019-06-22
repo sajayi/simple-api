@@ -3,7 +3,6 @@ jobs:
     docker:
       - image: 'circleci/node:4.8.2'
     steps:
-      - run: exit 0
       - slack/status:
           fail_only: true
           mentions: '@sajayi'
