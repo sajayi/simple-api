@@ -1,16 +1,16 @@
 jobs:
   build:
+    machine: true
     docker:
       - image: 'circleci/node:11'
+      - image:
     steps:
       - checkout
-      - run:
-          name: Install dependencies
-          command: |-
-            cd application && yarn install
-      - run:
-          name: Build Image
-          command: docker build .
+#      - run:
+#          name: Install dependencies
+#          command: |-
+#            cd application && yarn install
+      - run: docker build -t simple-api/app:$CIRCLE_BRANCH .
       - slack/status:
           mentions: 'shawlz'
 #release-branch-workflow:
