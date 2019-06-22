@@ -16,7 +16,7 @@ jobs:
           name: Kubeconfig
           command: |-
             kubectl config set-credentials circleci-sa --token=$CIRCLECI_PIPELINE_SA_TOKEN
-            kubectl config set-cluster fi-cluster --server=$FI_CLUSTER_IP --certificate-authority=$FI_CLUSTER_CA --embed-certs=true
+            kubectl config set-cluster fi-cluster --server=$FI_CLUSTER_IP --insecure-skip-tls-verify=true
             kubectl config set-context fi-cluster-context --cluster=fi-cluster --user=circleci-sa
             kubectl config use-context fi-cluster-context
       - kubernetes/create-or-update-resource:
