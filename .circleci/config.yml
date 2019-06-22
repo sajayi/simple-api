@@ -11,7 +11,26 @@ jobs:
       - run: docker build -t varsoft/simple-api:$CIRCLE_BRANCH .
       # deploy the image
       - run: docker push varsoft/simple-api:$CIRCLE_BRANCH
-
+      - kubernetes/install:
+      - run:
+          name: Kubeconfig
+          command: |
+            kubectl config set-credentials circleci-sa --token=$CIRCLECI_PIPELINE_SA_TOKEN
+            kubectl config set-cluster fi-cluster --server=$FI_CLUSTER_IP --certificate-authority=$FI_CLUSTER_CA --embed-certs=true
+            kubectl config set-context fi-cluster-context --cluster=fi-cluster --user=circleci-sa
+            kubectl config use-context fi-cluster-context
+      - kubernetes/create-or-update-resource:
+          get-rollout-status: true
+          resource-file-path: deployment/deployment.yaml
+          resource-name: deployment/simple-api
+          namespace: sandbox
+          show-kubectl-command: true
+#      - kubernetes/delete-resource:
+#          now: true
+#          resource-names: nginx-deployment
+#          resource-types: deployments
+#          namespace: sandbox
+#          wait: true
       - slack/status:
           mentions: 'shawlz'
 
@@ -27,4 +46,5 @@ jobs:
 #          - request-testing
 orbs:
   slack: circleci/slack@3.2.0
+  kubernetes: circleci/kubernetes@0.3.0
 version: 2.1
