@@ -6,9 +6,9 @@ jobs:
       - run: exit 0
       - slack/status:
           fail_only: true
-          mentions: 'USERID1,USERID2'
+          mentions: '@sajayi'
           only_for_branches: only_for_branches
           webhook: webhook
 orbs:
-  slack: circleci/slack@x.y.z
+  slack: circleci/slack@3.2.0
 version: 2.1
