@@ -7,7 +7,7 @@ jobs:
           mentions: 'shawlz'
       - run:
           name: Install dependencies
-          command: cd application && yarn install
+          command: ls
 release-branch-workflow:
   jobs:
     - build
