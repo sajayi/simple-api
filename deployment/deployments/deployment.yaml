@@ -16,6 +16,13 @@ spec:
       containers:
       - name: simple-api
         image: varsoft/simple-api:dev
+        resources:
+          requests:
+            cpu: 100m
+            memory: 50Mi
+          limits:
+            cpu: 200m
+            memory: 200Mi
         readinessProbe:
           httpGet:
             path: /health
