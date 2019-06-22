@@ -5,7 +5,6 @@ jobs:
     steps:
       - slack/status:
           mentions: '@sajayi'
-          only_for_branches: only_for_branches
 orbs:
   slack: circleci/slack@3.2.0
 version: 2.1
