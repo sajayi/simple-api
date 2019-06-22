@@ -20,8 +20,20 @@ jobs:
             kubectl config set-context fi-cluster-context --cluster=fi-cluster --user=circleci-sa
             kubectl config use-context fi-cluster-context
       - kubernetes/create-or-update-resource:
-          get-rollout-status: true
           resource-file-path: deployment/configmaps/development.yaml
+          namespace: sandbox
+          show-kubectl-command: true
+      - kubernetes/create-or-update-resource:
+          resource-file-path: deployment/ingress/development.yaml
+          namespace: sandbox
+          show-kubectl-command: true
+      - kubernetes/create-or-update-resource:
+          resource-file-path: deployment/services/services.yaml
+          namespace: sandbox
+          show-kubectl-command: true
+      - kubernetes/create-or-update-resource:
+          get-rollout-status: true
+          resource-file-path: deployment/deployments/deployment.yaml
           resource-name: deployment/simple-api
           namespace: sandbox
           show-kubectl-command: true
