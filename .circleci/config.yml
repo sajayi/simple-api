@@ -5,13 +5,16 @@ jobs:
 #      - image: 'circleci/node:11'
     steps:
       - checkout
-#      - run:
-#          name: Install dependencies
-#          command: |-
-#            cd application && yarn install
-      - run: docker build -t simple-api/app:$CIRCLE_BRANCH .
+      # Docker login
+      - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
+      # build the application image
+      - run: docker build -t varsoft/simple-api:$CIRCLE_BRANCH .
+      # deploy the image
+      - run: docker push varsoft/simple-api:$CIRCLE_BRANCH
+
       - slack/status:
           mentions: 'shawlz'
+
 #release-branch-workflow:
 #  jobs:
 #    - build
