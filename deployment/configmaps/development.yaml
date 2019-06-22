@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: simple-api
-  namespace: development
+  namespace: sandbox
 data:
   node.env: development
   node.port: "1500"
