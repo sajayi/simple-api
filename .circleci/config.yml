@@ -4,7 +4,20 @@ jobs:
       - image: 'circleci/node:4.8.2'
     steps:
       - slack/status:
-          mentions: '@sajayi'
+          mentions: 'shawlz'
+      - run:
+          name: Install dependencies
+          command: cd application && yarn install
+release-branch-workflow:
+  jobs:
+    - build
+    - request-testing:
+        type: approval
+        requires:
+          - build
+    - deploy-aws:
+        requires:
+          - request-testing
 orbs:
   slack: circleci/slack@3.2.0
 version: 2.1
