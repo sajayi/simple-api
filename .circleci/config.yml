@@ -6,11 +6,14 @@ jobs:
     steps:
       - checkout
       # Docker login
-#      - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
+      - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
       # build the application image
-#      - run: docker build -t varsoft/simple-api:$CIRCLE_BRANCH .
+      - run: docker build -t varsoft/simple-api:$CIRCLE_BRANCH .
       # deploy the image
-#      - run: docker push varsoft/simple-api:$CIRCLE_BRANCH
+      - run: docker push varsoft/simple-api:$CIRCLE_BRANCH
+  deploy:
+    machine: true
+    steps:
       - kubernetes/install
       - run:
           name: Kubeconfig
@@ -37,25 +40,20 @@ jobs:
           resource-name: deployment/simple-api
           namespace: sandbox
           show-kubectl-command: true
-#      - kubernetes/delete-resource:
-#          now: true
-#          resource-names: nginx-deployment
-#          resource-types: deployments
-#          namespace: sandbox
-#          wait: true
       - slack/status:
           mentions: 'shawlz'
-
-#release-branch-workflow:
-#  jobs:
-#    - build
-#    - request-testing:
-#        type: approval
-#        requires:
-#          - build
-#    - deploy-aws:
-#        requires:
-#          - request-testing
+workflows:
+  version: 2
+  dev-branch-workflow:
+    jobs:
+      - build
+      - request-approval:
+          type: approval
+          requires:
+            - build
+      - deploy:
+          requires:
+            - request-approval
 orbs:
   slack: circleci/slack@3.2.0
   kubernetes: circleci/kubernetes@0.3.0
