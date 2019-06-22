@@ -1,8 +1,6 @@
 jobs:
   build:
     machine: true
-#    docker:
-#      - image: 'circleci/node:11'
     steps:
       - checkout
       # Docker login
