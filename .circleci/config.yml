@@ -1,24 +1,24 @@
 jobs:
   build:
     docker:
-      - image: 'circleci/node:4.8.2'
+      - image: 'circleci/node:11'
     steps:
       - checkout
       - run:
           name: Install dependencies
-          command: ls
+          command: cd application && yarn install
       - slack/status:
           mentions: 'shawlz'
-release-branch-workflow:
-  jobs:
-    - build
-    - request-testing:
-        type: approval
-        requires:
-          - build
-    - deploy-aws:
-        requires:
-          - request-testing
+#release-branch-workflow:
+#  jobs:
+#    - build
+#    - request-testing:
+#        type: approval
+#        requires:
+#          - build
+#    - deploy-aws:
+#        requires:
+#          - request-testing
 orbs:
   slack: circleci/slack@3.2.0
 version: 2.1
