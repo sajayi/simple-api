@@ -15,7 +15,7 @@ jobs:
   deploy:
 #    machine: true
     docker:
-      - image: circleci/nodejs:11
+      - image: circleci/node:11
     steps:
       - checkout
       - setup_remote_docker:   # (2)
