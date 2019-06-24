@@ -1,8 +1,11 @@
 jobs:
   build:
-    machine: true
+    docker:
+      - image: circleci/node:11
     steps:
       - checkout
+      - setup_remote_docker:   # (2)
+          docker_layer_caching: true # (3)
       # Docker login
       - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
       # build the application image
@@ -13,13 +16,9 @@ jobs:
           message: Pending approval of build
           mentions: 'shawlz'
   deploy:
-#    machine: true
-    docker:
-      - image: circleci/node:11
+    machine: true
     steps:
       - checkout
-      - setup_remote_docker:   # (2)
-          docker_layer_caching: true # (3)
       - kubernetes/install
       - run:
           name: Kubeconfig
@@ -53,13 +52,13 @@ workflows:
   dev-branch-workflow:
     jobs:
       - build
-      - request-approval:
-          type: approval
-          requires:
-            - build
+#      - request-approval:
+#          type: approval
+#          requires:
+#            - build
       - deploy:
-          requires:
-            - request-approval
+#          requires:
+#            - request-approval
 orbs:
   slack: circleci/slack@3.2.0
   kubernetes: circleci/kubernetes@0.3.0
