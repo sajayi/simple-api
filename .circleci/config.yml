@@ -16,7 +16,9 @@ jobs:
           message: Pending approval of build
           mentions: 'shawlz'
   deploy:
-    machine: true
+#    machine: true
+    docker:
+      - image: circleci/node:11
     steps:
       - checkout
       - kubernetes/install
