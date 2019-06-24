@@ -57,7 +57,8 @@ workflows:
 #          requires:
 #            - build
       - deploy:
-#          requires:
+          requires:
+            - build
 #            - request-approval
 orbs:
   slack: circleci/slack@3.2.0
