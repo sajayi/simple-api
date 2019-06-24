@@ -12,9 +12,9 @@ jobs:
       - run: docker build -t varsoft/simple-api:$(git rev-parse HEAD) .
       # deploy the image
       - run: docker push varsoft/simple-api:$(git rev-parse HEAD)
-      - slack/approval:
-          message: Pending approval of build
-          mentions: 'shawlz'
+#      - slack/approval:
+#          message: Pending approval of build
+#          mentions: 'shawlz'
   deploy:
 #    machine: true
     docker:
