@@ -4,8 +4,8 @@ jobs:
       - image: circleci/node:11
     steps:
       - checkout
-      - setup_remote_docker:   # (2)
-          docker_layer_caching: true # (3)
+      - setup_remote_docker:
+          docker_layer_caching: true
       # Docker login
       - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
       # build the application image
