@@ -18,7 +18,7 @@ jobs:
       - checkout
       - kubernetes/install
       - kubernetes/install-kubeconfig
-      - run: cat $HOME/.kube/config
+      - run: kubectl get pods --namespace kube-system
       - kubernetes/create-or-update-resource:
           resource-file-path: deployment/configmaps/development.yaml
           namespace: default
@@ -44,10 +44,10 @@ workflows:
   dev-branch-workflow:
     jobs:
       - build
-      - request-approval:
-          type: approval
-          requires:
-            - build
+#       - request-approval:
+#           type: approval
+#           requires:
+#             - build
       - deploy:
           requires:
             - request-approval
