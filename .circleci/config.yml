@@ -24,13 +24,16 @@ jobs:
           show-kubectl-command: true
       - kubernetes/create-or-update-resource:
           resource-file-path: deployment/ingress/development.yaml
+          namespace: sandbox
           show-kubectl-command: true
       - kubernetes/create-or-update-resource:
           resource-file-path: deployment/services/services.yaml
+          namespace: sandbox
           show-kubectl-command: true
       - kubernetes/create-or-update-resource:
           get-rollout-status: true
           resource-file-path: deployment/deployments/deployment.yaml
+          namespace: sandbox
           resource-name: deployment/simple-api
           show-kubectl-command: true
       - slack/status:
