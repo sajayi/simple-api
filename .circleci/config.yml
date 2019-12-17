@@ -19,9 +19,6 @@ jobs:
       - kubernetes/install-kubectl
       - kubernetes/install-kubeconfig:
           kubeconfig: KUBECONFIG_ENCODED
-      - run: echo $KUBECONFIG
-      - run: cat $HOME/.kube/config
-      - run: kubectl get pods --namespace kube-system
       - kubernetes/create-or-update-resource:
           resource-file-path: deployment/configmaps/development.yaml
           namespace: default
@@ -40,21 +37,20 @@ jobs:
           resource-name: deployment/simple-api
           namespace: default
           show-kubectl-command: true
-#       - slack/status:
-#           mentions: 'shawlz'
+      - slack/status:
+          mentions: 'shawlz'
 workflows:
   version: 2
   dev-branch-workflow:
     jobs:
-#       - build
-#       - request-approval:
-#           type: approval
-#           requires:
-#             - build
-      - deploy
-#       - deploy: 
-#           requires:
-#             - request-approval
+      - build
+      - request-approval:
+          type: approval
+          requires:
+            - build
+      - deploy: 
+          requires:
+            - request-approval
 orbs:
   slack: circleci/slack@3.4.1
   kubernetes: circleci/kubernetes@0.10.1
