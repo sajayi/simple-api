@@ -17,13 +17,8 @@ jobs:
     steps:
       - checkout
       - kubernetes/install
-      - run:
-          name: Kubeconfig
-          command: |-
-            kubectl config set-credentials circleci-sa --token=$CIRCLECI_PIPELINE_SA_TOKEN
-            kubectl config set-cluster k8s-cluster --server=$K8S_CLUSTER_SERVER --insecure-skip-tls-verify=true
-            kubectl config set-context k8s-cluster-context --cluster=k8s-cluster --user=circleci-sa
-            kubectl config use-context k8s-cluster-context
+      - kubernetes/install-kubeconfig:
+          kubeconfig: $KUBECONFIG
       - kubernetes/create-or-update-resource:
           resource-file-path: deployment/configmaps/development.yaml
           namespace: default
@@ -58,5 +53,5 @@ workflows:
             - request-approval
 orbs:
   slack: circleci/slack@3.2.0
-  kubernetes: circleci/kubernetes@0.3.0
+  kubernetes: circleci/kubernetes@0.10.1
 version: 2.1
