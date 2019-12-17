@@ -45,7 +45,7 @@ workflows:
   version: 2
   dev-branch-workflow:
     jobs:
-      - build
+#       - build
 #       - request-approval:
 #           type: approval
 #           requires:
