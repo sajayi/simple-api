@@ -21,21 +21,17 @@ jobs:
           kubeconfig: KUBECONFIG_ENCODED
       - kubernetes/create-or-update-resource:
           resource-file-path: deployment/configmaps/development.yaml
-          namespace: default
           show-kubectl-command: true
       - kubernetes/create-or-update-resource:
           resource-file-path: deployment/ingress/development.yaml
-          namespace: default
           show-kubectl-command: true
       - kubernetes/create-or-update-resource:
           resource-file-path: deployment/services/services.yaml
-          namespace: default
           show-kubectl-command: true
       - kubernetes/create-or-update-resource:
           get-rollout-status: true
           resource-file-path: deployment/deployments/deployment.yaml
           resource-name: deployment/simple-api
-          namespace: default
           show-kubectl-command: true
       - slack/status:
           mentions: 'shawlz'
