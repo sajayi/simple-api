@@ -16,7 +16,8 @@ jobs:
     machine: true
     steps:
       - checkout
-      - kubernetes/install
+      - kubernetes/install:
+          kubectl-version: 1.16.0
       - kubernetes/install-kubeconfig
       - run: kubectl get pods --namespace kube-system
       - kubernetes/create-or-update-resource:
