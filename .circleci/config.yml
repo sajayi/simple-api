@@ -18,7 +18,7 @@ jobs:
       - checkout
       - kubernetes/install
       - kubernetes/install-kubeconfig:
-          kubeconfig: $KUBECONFIG
+          kubeconfig: KUBECONFIG
       - kubernetes/create-or-update-resource:
           resource-file-path: deployment/configmaps/development.yaml
           namespace: default
