@@ -17,7 +17,7 @@ jobs:
     steps:
       - checkout
       - kubernetes/install:
-          kubectl-version: 1.17.0
+          kubectl-version: v1.17.0
       - kubernetes/install-kubeconfig
       - run: kubectl get pods --namespace kube-system
       - kubernetes/create-or-update-resource:
@@ -38,8 +38,8 @@ jobs:
           resource-name: deployment/simple-api
           namespace: default
           show-kubectl-command: true
-      - slack/status:
-          mentions: 'shawlz'
+#       - slack/status:
+#           mentions: 'shawlz'
 workflows:
   version: 2
   dev-branch-workflow:
