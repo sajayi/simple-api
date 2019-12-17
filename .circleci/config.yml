@@ -49,9 +49,9 @@ workflows:
 #           requires:
 #             - build
       - deploy:
-          requires:
-            - request-approval
+#           requires:
+#             - request-approval
 orbs:
-  slack: circleci/slack@3.2.0
+  slack: circleci/slack@3.4.1
   kubernetes: circleci/kubernetes@0.10.1
 version: 2.1
