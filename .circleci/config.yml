@@ -21,7 +21,7 @@ jobs:
           name: Kubeconfig
           command: |-
             kubectl config set-credentials circleci-sa --token=$CIRCLECI_PIPELINE_SA_TOKEN
-            kubectl config set-cluster --server=$K8S_CLUSTER_IP --insecure-skip-tls-verify=true
+            kubectl config set-cluster --server=$K8S_CLUSTER_SERVER --insecure-skip-tls-verify=true
             kubectl config set-context k8s-cluster-context --cluster=k8s-cluster --user=circleci-sa
             kubectl config use-context k8s-cluster-context
       - kubernetes/create-or-update-resource:
