@@ -18,6 +18,7 @@ jobs:
       - checkout
       - kubernetes/install
       - kubernetes/install-kubeconfig
+      - run: cat $HOME/.kube/config
       - kubernetes/create-or-update-resource:
           resource-file-path: deployment/configmaps/development.yaml
           namespace: default
