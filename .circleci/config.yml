@@ -19,6 +19,7 @@ jobs:
       - kubernetes/install:
           kubectl-version: v1.17.0
       - kubernetes/install-kubeconfig
+          kubeconfig: KUBECONFIG_ENCODED
       - run: kubectl get pods --namespace kube-system
       - kubernetes/create-or-update-resource:
           resource-file-path: deployment/configmaps/development.yaml
